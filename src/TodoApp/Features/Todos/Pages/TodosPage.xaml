@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<app:BasePage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:app="clr-namespace:TodoApp"
+    x:Class="TodoApp.TodosPage"
+    x:DataType="app:TodosPageViewModel"
+    x:Name="root"
+    Title="Todos"
+    Shell.NavBarHasShadow="False"
+    Shell.NavBarIsVisible="False"
+    BackgroundColor="{x:Static app:Colors.Bg}">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem
+            IconImageSource="{FontImage
+                Color={x:Static app:Colors.TextSecondary},
+                Size=24,
+                FontFamily={x:Static app:Fonts.Mdi},
+                Glyph={x:Static app:Mdi.Magnify}
+            }" />
+        <ToolbarItem
+            IconImageSource="{FontImage
+                Color={x:Static app:Colors.TextSecondary},
+                Size=24,
+                FontFamily={x:Static app:Fonts.Mdi},
+                Glyph={x:Static app:Mdi.Bell}
+            }" />
+    </ContentPage.ToolbarItems>
+
+    <Grid
+        x:Name="grid">
+        <app:SideBarMenuView 
+            x:Name="SideBarView" 
+            TranslationX="-300"/>
+
+        <app:TodosMainContentView
+            BackgroundColor="{x:Static app:Colors.Bg}"
+            x:Name="TodoContentView"
+            BindingContext="{Binding BindingContext, Source={x:Reference root}}"
+            >
+            <app:TodosMainContentView.Triggers>
+                <DataTrigger
+                    Binding="{Binding SidebarMenuVisible}"
+                    Value="True"
+                    TargetType="app:TodosMainContentView">
+                    <Setter
+                        Property="BackgroundColor"
+                        Value="{x:Static app:Colors.Primary}" />
+                </DataTrigger>
+            </app:TodosMainContentView.Triggers>
+        </app:TodosMainContentView>
+    </Grid>
+</app:BasePage>
